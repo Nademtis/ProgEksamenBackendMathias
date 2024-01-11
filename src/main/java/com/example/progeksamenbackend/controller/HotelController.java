@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class HotelController {
 
     @Autowired
@@ -27,6 +28,11 @@ public class HotelController {
     @PutMapping("updateHotel")
     public ResponseEntity<HotelDTO> updateHotel(@RequestBody Hotel hotel){
         return hotelService.updateHotel(hotel);
+    }
+
+    @DeleteMapping("deleteHotel/{id}")
+    public ResponseEntity<Void> deleteHotel(@PathVariable("id") int id){
+        return hotelService.deleteHotel(id);
     }
 
 }

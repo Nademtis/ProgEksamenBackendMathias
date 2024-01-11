@@ -32,7 +32,7 @@ public class Hotel {
     private LocalDateTime created;
     private LocalDateTime updated;
 
-    @OneToMany(mappedBy="hotel")
+    @OneToMany(mappedBy="hotel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Column(name = "room_id")
     private Set<Room> room;
 

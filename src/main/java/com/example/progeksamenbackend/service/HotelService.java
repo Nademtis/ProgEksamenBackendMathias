@@ -58,7 +58,7 @@ public class HotelService {
     public ResponseEntity<HotelDTO> updateHotel(Hotel hotel) {
         Optional<Hotel> optHotel = hotelRepo.findById(hotel.getHotelID());
 
-        if (optHotel.isPresent()){
+        if (optHotel.isPresent()) {
             Hotel updatedHotel = optHotel.get();
 
             updatedHotel.setName(hotel.getName());
@@ -71,11 +71,26 @@ public class HotelService {
 
             hotelRepo.save(updatedHotel);
             return ResponseEntity.ok(hotelConverter.toDTO(updatedHotel, getRoomAmount(updatedHotel.getHotelID())));
-        }else {
+        } else {
             return ResponseEntity.notFound().build();
         }
     }
-    private int getRoomAmount(int hotelID){
+
+    private int getRoomAmount(int hotelID) {
         return roomRepo.countByHotel_HotelID(hotelID);
+    }
+
+    public ResponseEntity<Void> deleteHotel(int id) {
+        Optional<Hotel> optHotel = hotelRepo.findById(id);
+
+        //TODO CAN NOT DELETE IF THERE IS RESERVATIONS
+
+        if (optHotel.isPresent()) {
+            Hotel hotelToDelete = optHotel.get();
+            hotelRepo.delete(hotelToDelete);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
