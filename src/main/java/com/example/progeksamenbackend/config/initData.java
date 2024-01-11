@@ -22,7 +22,7 @@ public class initData implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        //initHotels();
+        initHotels();
     }
 
     public void initHotels() {

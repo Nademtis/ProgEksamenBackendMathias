@@ -5,14 +5,12 @@ import com.example.progeksamenbackend.model.Reservation;
 import com.example.progeksamenbackend.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -34,6 +32,15 @@ public class ReservationController {
             System.out.println("error in addNewReservation Controller: " + e);
             return ResponseEntity.badRequest().build();
         }
+    }
 
+    @GetMapping("getReservations/{username}")
+    public ResponseEntity<List<ReservationDTO>> getReservations(@PathVariable("username") String username){
+        return reservationService.getReservations(username);
+    }
+
+    @DeleteMapping("deleteReservation/{reservationID}")
+    public ResponseEntity<Void> deleteReservation(@PathVariable("reservationID") int reservationID){
+        return reservationService.deleteReservation(reservationID);
     }
 }
