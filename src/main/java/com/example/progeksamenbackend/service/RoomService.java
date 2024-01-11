@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -47,5 +49,19 @@ public class RoomService {
             return ResponseEntity.notFound().build();
         }
 
+    }
+
+    public ResponseEntity<List<RoomDTO>> getRoomsInHotel(int hotelID) {
+        try {
+            List<Room> roomList = roomRepo.findByHotel_HotelID(hotelID);
+            List<RoomDTO> roomDTOList = new ArrayList<>();
+            for (Room room: roomList){
+                roomDTOList.add(roomConverter.toDTO(room));
+            }
+            return ResponseEntity.ok(roomDTOList);
+        } catch (Error e) {
+            System.out.println("Something went wrong in getRoomsInHotel: " + e);
+            return ResponseEntity.badRequest().build();
+        }
     }
 }

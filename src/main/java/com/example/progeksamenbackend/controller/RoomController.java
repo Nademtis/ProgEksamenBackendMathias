@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin
 public class RoomController {
@@ -19,6 +21,11 @@ public class RoomController {
                                               @PathVariable("numberOfBeds")int numberOfBeds,
                                               @PathVariable("hotelID")int hotelID){
         return roomService.addNewRoom(roomPrice, numberOfBeds, hotelID);
+    }
+
+    @GetMapping("getRooms/{hotelID}")
+    public ResponseEntity<List<RoomDTO>> getRoomsInHotel(@PathVariable("hotelID") int hotelID){
+        return roomService.getRoomsInHotel(hotelID);
     }
 
 }

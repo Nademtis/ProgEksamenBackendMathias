@@ -22,13 +22,13 @@ public class initData implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        initHotels();
+        //initHotels();
     }
 
     public void initHotels() {
 
 
-        for (int i = 0; i < 250; i++) {
+        for (int i = 1; i < 251; i++) {
             Hotel hotel = new Hotel();
             hotel.setName("Hotel " + i);
             hotel.setStreet("Street " + i);
@@ -49,7 +49,7 @@ public class initData implements CommandLineRunner {
                 room.setRoomPrice(room.getNumberOfBeds() * 500);
                 room.setHotel(hotel);
                 room.setCreated(LocalDateTime.now());
-                room.setUpdated(LocalDateTime.now());
+//                room.setUpdated(LocalDateTime.now());
 
                 roomRepo.save(room);
             }
