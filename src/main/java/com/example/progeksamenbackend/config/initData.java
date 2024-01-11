@@ -22,7 +22,7 @@ public class initData implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//        initHotels();
+        //initHotels();
     }
 
     public void initHotels() {
@@ -36,7 +36,7 @@ public class initData implements CommandLineRunner {
             hotel.setZip("Zip " + i);
             hotel.setCountry("Country " + i);
             hotel.setCreated(LocalDateTime.now());
-            hotel.setUpdated(LocalDateTime.now());
+            //hotel.setUpdated(LocalDateTime.now());
 
             hotelRepo.save(hotel);
 

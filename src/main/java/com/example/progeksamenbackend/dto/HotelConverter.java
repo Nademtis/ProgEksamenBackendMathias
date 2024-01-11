@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class HotelConverter {
-    public HotelDTO toDTO(Hotel hotel) {
+    public HotelDTO toDTO(Hotel hotel, int amountOfRooms) {
         return new HotelDTO(hotel.getHotelID(), hotel.getName(), hotel.getStreet(),
-                hotel.getCity(), hotel.getZip(), hotel.getCountry());
+                hotel.getCity(), hotel.getZip(), hotel.getCountry(), amountOfRooms);
     }
 }
