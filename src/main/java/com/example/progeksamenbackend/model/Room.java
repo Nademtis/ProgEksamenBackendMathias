@@ -38,7 +38,6 @@ public class Room {
 
     @OneToMany(mappedBy="room", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Column(name = "reservation_id")
-    @JsonBackReference
     private Set<Reservation> reservation;
 
 }
