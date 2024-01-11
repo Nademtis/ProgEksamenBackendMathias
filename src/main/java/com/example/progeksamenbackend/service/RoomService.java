@@ -21,16 +21,21 @@ public class RoomService {
     @Autowired
     HotelRepo hotelRepo;
 
-    public ResponseEntity<Room> addNewRoom(Room room) {
-        System.out.println("room look like: " + room);
-        Optional<Hotel> optHotel = hotelRepo.findById(room.getHotel().getHotelID());
-
+    public ResponseEntity<Room> addNewRoom(double roomPrice, int numberOfBeds, int hotelID) {
+        Optional<Hotel> optHotel = hotelRepo.findById(hotelID);
 
         if (optHotel.isPresent()) {
-            room.setCreated(LocalDateTime.now());
-            //room.setRoomNumber(roomRepo.countByHotel_HotelID(optHotel.get().getHotelID()) + 1);
-            roomRepo.save(room);
-            return ResponseEntity.ok(room);
+            Hotel hotel = optHotel.get();
+            Room newRoom = new Room();
+            newRoom.setRoomNumber(roomRepo.countByHotel_HotelID(hotelID) + 1);
+            newRoom.setRoomPrice(roomPrice);
+            newRoom.setNumberOfBeds(numberOfBeds);
+            newRoom.setHotel(hotel);
+
+            newRoom.setCreated(LocalDateTime.now());
+            System.out.println(newRoom);
+//            roomRepo.save(newRoom);
+            return ResponseEntity.ok(newRoom);
         } else {
             return ResponseEntity.notFound().build();
         }

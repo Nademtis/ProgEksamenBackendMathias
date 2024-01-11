@@ -1,5 +1,7 @@
 package com.example.progeksamenbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -36,6 +38,7 @@ public class Room {
 
     @OneToMany(mappedBy="room", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Column(name = "reservation_id")
+    @JsonBackReference
     private Set<Reservation> reservation;
 
 }
