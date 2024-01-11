@@ -1,5 +1,7 @@
 package com.example.progeksamenbackend.service;
 
+import com.example.progeksamenbackend.dto.RoomConverter;
+import com.example.progeksamenbackend.dto.RoomDTO;
 import com.example.progeksamenbackend.model.Hotel;
 import com.example.progeksamenbackend.model.Room;
 import com.example.progeksamenbackend.repo.HotelRepo;
@@ -21,7 +23,10 @@ public class RoomService {
     @Autowired
     HotelRepo hotelRepo;
 
-    public ResponseEntity<Room> addNewRoom(double roomPrice, int numberOfBeds, int hotelID) {
+    @Autowired
+    RoomConverter roomConverter;
+
+    public ResponseEntity<RoomDTO> addNewRoom(double roomPrice, int numberOfBeds, int hotelID) {
         Optional<Hotel> optHotel = hotelRepo.findById(hotelID);
 
         if (optHotel.isPresent()) {
@@ -34,8 +39,10 @@ public class RoomService {
 
             newRoom.setCreated(LocalDateTime.now());
             System.out.println(newRoom);
-//            roomRepo.save(newRoom);
-            return ResponseEntity.ok(newRoom);
+            roomRepo.save(newRoom);
+
+            RoomDTO roomDTO = roomConverter.toDTO(newRoom);
+            return ResponseEntity.ok(roomDTO);
         } else {
             return ResponseEntity.notFound().build();
         }

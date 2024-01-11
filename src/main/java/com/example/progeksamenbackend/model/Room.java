@@ -2,6 +2,8 @@ package com.example.progeksamenbackend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,7 +15,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +33,8 @@ public class Room {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hotel_id")
+//    @JsonBackReference
+//    @JsonIgnoreProperties("room")
     private Hotel hotel;
 
     private LocalDateTime created;
@@ -38,6 +42,8 @@ public class Room {
 
     @OneToMany(mappedBy="room", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Column(name = "reservation_id")
+//    @JsonManagedReference
+//    @JsonIgnoreProperties("room")
     private Set<Reservation> reservation;
 
 }

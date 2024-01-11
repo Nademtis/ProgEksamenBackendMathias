@@ -1,5 +1,6 @@
 package com.example.progeksamenbackend.controller;
 
+import com.example.progeksamenbackend.dto.RoomDTO;
 import com.example.progeksamenbackend.model.Room;
 import com.example.progeksamenbackend.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +15,9 @@ public class RoomController {
     RoomService roomService;
 
     @GetMapping("addNewRoom/{roomPrice}/{numberOfBeds}/{hotelID}")
-    public ResponseEntity<Room> addNewRoom(@PathVariable("roomPrice") double roomPrice,
-                                           @PathVariable("numberOfBeds")int numberOfBeds,
-                                           @PathVariable("hotelID")int hotelID){
+    public ResponseEntity<RoomDTO> addNewRoom(@PathVariable("roomPrice") double roomPrice,
+                                              @PathVariable("numberOfBeds")int numberOfBeds,
+                                              @PathVariable("hotelID")int hotelID){
         return roomService.addNewRoom(roomPrice, numberOfBeds, hotelID);
     }
 
