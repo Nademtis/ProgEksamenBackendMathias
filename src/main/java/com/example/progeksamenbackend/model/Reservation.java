@@ -32,6 +32,7 @@ public class Reservation {
 
     private LocalDateTime created;
     private LocalDateTime updated;
+    private double price;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "guest_id")

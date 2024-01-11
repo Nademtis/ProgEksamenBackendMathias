@@ -45,6 +45,7 @@ public class ReservationService {
             Guest guest = guestRepo.findByUsername(username);
             reservation.setGuest(guest);
             reservation.setCreated(LocalDateTime.now());
+            reservation.setPrice(room.get().getRoomPrice());
             System.out.println(reservation);
 
             reservationRepo.save(reservation);
