@@ -82,9 +82,6 @@ public class HotelService {
 
     public ResponseEntity<Void> deleteHotel(int id) {
         Optional<Hotel> optHotel = hotelRepo.findById(id);
-
-        //TODO CAN NOT DELETE IF THERE IS RESERVATIONS
-
         if (optHotel.isPresent()) {
             Hotel hotelToDelete = optHotel.get();
             hotelRepo.delete(hotelToDelete);
