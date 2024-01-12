@@ -55,7 +55,7 @@ public class RoomService {
         try {
             List<Room> roomList = roomRepo.findByHotel_HotelID(hotelID);
             List<RoomDTO> roomDTOList = new ArrayList<>();
-            for (Room room: roomList){
+            for (Room room : roomList) {
                 roomDTOList.add(roomConverter.toDTO(room));
             }
             return ResponseEntity.ok(roomDTOList);

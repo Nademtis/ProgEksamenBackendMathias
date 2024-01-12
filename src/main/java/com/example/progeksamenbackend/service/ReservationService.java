@@ -38,15 +38,13 @@ public class ReservationService {
         Reservation reservation = new Reservation();
         Optional<Room> room = roomRepo.findById(roomID);
 
-        if (room.isPresent()) {
+        if (room.isPresent() && roomCanBeBooked(date, roomID)) {
             reservation.setRoom(room.get());
             reservation.setReservationDate(date);
-            //TODO CHECK FOR ALLREADY BOOKED TIME
             Guest guest = guestRepo.findByUsername(username);
             reservation.setGuest(guest);
             reservation.setCreated(LocalDateTime.now());
             reservation.setPrice(room.get().getRoomPrice());
-            System.out.println(reservation);
 
             reservationRepo.save(reservation);
             ReservationDTO reservationDTO = reservationConverter.toDTO(reservation);
@@ -55,6 +53,11 @@ public class ReservationService {
             return ResponseEntity.badRequest().build();
         }
 
+    }
+    private boolean roomCanBeBooked(LocalDate date, int roomID){
+        Optional<Reservation> optReservation =
+                Optional.ofNullable(reservationRepo.findByReservationDateAndRoom_RoomID(date, roomID));
+        return optReservation.isEmpty();
     }
 
     public ResponseEntity<List<ReservationDTO>> getReservations(String username) {
